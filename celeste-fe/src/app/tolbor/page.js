@@ -1,73 +1,129 @@
-'use client'
-import Cover3 from '../images/cover3.jpg'
-import Cover2 from '../images/cover2.jpg'
-import Image4 from '../images/image4.jpg'
-import Image5 from '../images/image5.jpg'
-import Image7 from '../images/image7.jpg'
-import Image from 'next/image'
-import { useEffect } from 'react';
-
+"use client";
+import Image4 from '../images/image4.jpg';
+import Image from 'next/image';
+import React, { useState } from 'react';
+import { InputText } from 'primereact/inputtext';
+import { Button } from 'primereact/button';
+import 'primeicons/primeicons.css';
 
 export default function Home() {
-  useEffect(() => {
-    window.addEventListener('mousemove', function(e){
-      let body = document.querySelector('.body-star');
-      let div = document.createElement('div');
-      div.setAttribute("class", "star-div");
-      let star = document.createElement('img');
-      star.setAttribute("class", "star");
-      star.setAttribute("src", "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/e2421eab-141b-4cde-9c6d-1990bc6294fa/d6mdd4s-c3ef397d-3a69-4032-ab56-1e1b39733ee6.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcL2UyNDIxZWFiLTE0MWItNGNkZS05YzZkLTE5OTBiYzYyOTRmYVwvZDZtZGQ0cy1jM2VmMzk3ZC0zYTY5LTQwMzItYWI1Ni0xZTFiMzk3MzNlZTYucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.cULIDtHhoo1oiY0areR5ASvQEtl2PwT8BZLzG1rj3CU");
-      let x = e.offsetX - 40;
-      let y = e.offsetY - 40;
-      div.style.left = x + 'px';
-      div.style.top = y + 'px';
-  
-      let size = Math.random() * 80;
-      star.style.width = 20 + size + 'px';
-      star.style.height = 20 + size + 'px';
+  const [value, setValue] = useState(1);
+  const [price, setPrice] = useState(38000);
+  const [isButtonClicked, setIsButtonClicked] = useState(false);
 
-      console.log(star.style.width, star.style.height)
-  
-  
-      let transformValue = Math.random() * 360;
-      // div.style.transform = 'rotate('+transformValue+'deg)';
-  
-      let colorR = Math.random() * 255;
-      let colorG = Math.random() * 255;
-      let colorB = Math.random() * 255;
-      star.style.color = 'rgb('+colorR+','+colorG+','+colorB+')'
-  
-      div.appendChild(star);
-      body.appendChild(div);
-  
-      setTimeout(function () {
-          div.remove();
-          star.remove();
-      },500)
-    })
-  }, []);
+  const handleIncrement = () => {
+    setValue(value + 1);
+    setPrice(price * value);
+  };
 
+  const handleDecrement = () => {
+    if (value > 1) {
+      setValue(value - 1);
+      setPrice(price / (value - 1));
+    }
+  };
 
-  
+  const handleButtonClick = () => {
+    setIsButtonClicked(true);
+  };
+
   return (
-    <main className='pt-20 text-[#F397AF] text-xs px-4 '>
-      <div className='grid grid-cols-3 gap-4'>
-        <div className=' col-span-2 w-full h-40 bg-white rounded-lg p-3 grid grid-cols-8'>
+    <main className="pt-20 text-[#F397AF] text-xs px-4 ">
+      {!isButtonClicked && (
+        <div className="grid grid-cols-3 gap-4">
+          <div className='col-span-2'>
+            <h1 className='text-lg float-left mb-3'>Миний сагс</h1>
+            <h6 className='float-right mt-2'>
+              <i className={'pi pi-trash ml-2 mr-1'}></i>сагс хоослох
+            </h6>
+            <div className="w-full h-40 bg-white rounded-lg p-3 grid grid-cols-8">
+              <div className="col-span-1 bg-black">
+                <Image src={Image4} height={135} className="rounded-lg" />
+              </div>
 
-          <div className='col-span-1 bg-black'>
-            <Image src={Image4} height={135} className='rounded-lg'/>
+              <div className="col-span-4 pl-4 text-xl">
+                Улаан башир
+                <p className="text-sm">Улаан башир Улаан башир Улаан башир Улаан башир</p>
+              </div>
+
+              <div className="col-span-3 pl-4 pt-5">
+                <div className="float-left mt-1 mr-2 font-bold text-sm">38000 ₮</div>
+                <Button label="-" onClick={handleDecrement} className="border border-black p-1 w-6 float-left" />
+                <span className="p-float-label float-left border border-black w-1/5">
+                  <InputText id="username" value={value} onChange={(e) => setValue(e.target.value)} className="p-1 text-right w-full" />
+                </span>
+                <Button label="+" onClick={handleIncrement} className="border border-black p-1 w-6 float-left mr-2" />
+                <div className="float-left mt-1 font-bold text-sm">{price * value} ₮</div>
+
+                <div className="float-right mt-5">
+                  <i className={'pi pi-trash ml-2 mr-1'}></i>Устгах | 
+                  <i className="pi pi-heart mr-1 ml-2"></i>Хадгалах
+                </div>
+              </div>
+            </div>
           </div>
-        
-        <div className='col-span-4 pl-4 text-xl'>Улаан башир
-        <p className='text-sm'>Улаан башир Улаан башир Улаан башир Улаан башир</p>
+          <div className='col-span-1'>
+            <h1 className='text-lg mb-3'>Захиалгын мэдээлэл</h1>
+            <div className="w-full h-40 bg-white rounded-lg p-3">
+              <div className='grid grid-cols-6 p-2'>
+                <div className='col-span-3 text-sm'>Улаан башир</div>
+                <div className='col-span-1 text-sm'>x{value}</div>
+                <div className='col-span-2 text-sm'>{price * value} ₮</div>
+              </div>
+              <div className='grid grid-cols-6 p-2 border-t-2 border-b-2 bg-slate-200'>
+                <div className='col-span-4 text-sm'>Нийт</div>
+                <div className='col-span-2 font-bold text-sm'>{price * value} ₮</div>
+              </div>
+              <Button className='border text-white p-3 mt-4 w-full' style={{ backgroundColor: '#F397AF'}} onClick={handleButtonClick}>
+                Худалдах авах
+              </Button>
+            </div>
+          </div>
         </div>
+      )}
+      {isButtonClicked && (
+        <div className='bg-white w-full h-80 p-6'>
+          <div className='grid grid-cols-2 gap-6'>
+          <div className='col-span-1'>
+            <h1 className='text-xl mb-4'>Төлбөрийн хаяг</h1>
 
-        <div className='col-span-3 pl-4 bg-black'>38,000 ₮</div>
+            <div className='float-left w-full'><i className="pi pi-user mr-2"></i>Овог Нэр</div>
+            <span className="p-float-label float-left border border-black w-full mt-2 mb-2">
+                  <InputText id="username" placeholder='Нэрээ бичнэ үү?' className="p-1 text-right w-full" />
+            </span>   
+
+            <div className='float-left w-full'><i className="pi pi-inbox mr-2"></i>Цахим хаяг</div>
+            <span className="p-float-label float-left border border-black w-full mt-2 mb-2">
+                  <InputText id="username" placeholder='Цахим хаягаа бичнэ үү?' className="p-1 text-right w-full" />
+            </span> 
+
+            <div className='float-left w-full'><i className="pi pi-id-card mr-2"></i>Гэрийн хаяг</div>
+            <span className="p-float-label float-left border border-black w-full mt-2 mb-2">
+                  <InputText id="username" placeholder='Хаягаа бичнэ үү?' className="p-1 text-right w-full" />
+            </span> 
+
+            </div>
+          <div className='col-span-1'>
+            <h1 className='text-xl mb-4'>Төлбөр</h1>
+            <div className='float-left w-full'><i className="pi pi-user mr-2"></i>Зөвшөөрөгдсөн картууд</div>
+            <span className="p-float-label float-left border border-black w-full mt-2 mb-2">
+                  <InputText id="username" placeholder='Нэрээ бичнэ үү?' className="p-1 text-right w-full" />
+            </span>   
+
+            <div className='float-left w-full'><i className="pi pi-inbox mr-2"></i>Цахим хаяг</div>
+            <span className="p-float-label float-left border border-black w-full mt-2 mb-2">
+                  <InputText id="username" placeholder='Цахим хаягаа бичнэ үү?' className="p-1 text-right w-full" />
+            </span> 
+
+            <div className='float-left w-full'><i className="pi pi-id-card mr-2"></i>Гэрийн хаяг</div>
+            <span className="p-float-label float-left border border-black w-full mt-2 mb-2">
+                  <InputText id="username" placeholder='Хаягаа бичнэ үү?' className="p-1 text-right w-full" />
+            </span> 
+          </div>
         </div>
-        <div className=' col-span-1 w-full h-40 bg-white rounded-lg p-3'>
-          herjhnrtdjndr
+        <Button className="w-full text-white p-3 mt-4 rounded-lg text-center" style={{backgroundColor:'#F397AF'}}>Төлбөр төлөх</Button>
         </div>
-  </div>
+      )}
     </main>
   );
-};
+}
