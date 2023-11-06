@@ -40,7 +40,7 @@ function RootLayout({ children }) {
           </div>
           <div className='flex gap-2 text-[#F397AF] text-xs px-4 '>
             <div className='px-1 py-2 flex items-center gap-1' ><Star variant='Bold' size={24} /></div>
-            <div className='px-1 py-2 flex items-center gap-1'><ShoppingCart variant='Bold' size={24} /></div>
+            <div className='px-1 py-2 flex items-center gap-1'><Link href='/tolbor'><ShoppingCart variant='Bold' size={24} /></Link></div>
             <div className='px-1 py-2 flex items-center gap-1'><User variant='Bold' size={24} /></div>
           </div>
         </div>

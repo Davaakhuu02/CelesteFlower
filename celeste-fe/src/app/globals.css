@@ -17,13 +17,14 @@
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
+  background: #404040;
+  /* color: rgb(var(--foreground-rgb));
   background: linear-gradient(
       to bottom,
       transparent,
       rgb(var(--background-end-rgb))
     )
-    rgb(var(--background-start-rgb));
+    rgb(var(--background-start-rgb)); */
 }
 
 .box {
@@ -78,3 +79,9 @@ body {
   width: 100vw;
   overflow: hidden;
 }
+.text-custom-color {
+  color:#F397AF
+}
+
+/* /////////////////////////////////////////////////////////////////////////// */
+
