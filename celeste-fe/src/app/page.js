@@ -27,8 +27,6 @@ export default function Home() {
       let size = Math.random() * 80;
       star.style.width = 20 + size + 'px';
       star.style.height = 20 + size + 'px';
-
-      console.log(star.style.width, star.style.height)
   
   
       let transformValue = Math.random() * 360;

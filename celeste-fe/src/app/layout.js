@@ -8,19 +8,27 @@ import Head from 'next/head'
 import Link from 'next/link'
 import React, { useState } from 'react'
 import { Dropdown } from 'primereact/dropdown';
+import { useRouter } from 'next/navigation'
 // https://www.facebook.com/profile.php?id=100095477047479
 const inter = Inter({ subsets: ['latin'] })
 
 function RootLayout({ children }) {
   const [selectedCity, setSelectedCity] = useState(null)
+  const router = useRouter()
   const cities = [
-  
-    { name: 'Цэцэг', code: 'NY' },
-    { name: 'Баглаа боодол', code: 'RM' },
-    { name: 'Үнэт эдлэл', code: 'LDN' },
-    { name: 'Бэлэг дурсгал', code: 'IST' },
-    { name: 'Дарс,Шоколад', code: 'PRS' },
+    { name: 'Цэцэг', code: 'flowers' },
+    { name: 'Баглаа боодол', code: 'bouquets' },
+    { name: 'Үнэт эдлэл', code: 'accessories' },
+    { name: 'Бэлэг дурсгал', code: 'gifts' },
+    { name: 'Дарс,Шоколад', code: 'choco' },
   ]
+
+  function onChangeSelect(e) {
+    setSelectedCity(e.value);
+
+    router.push(('/flower?type=' + e.value.code))
+  }
+
   return (
     <html lang="en">
       <body className={inter.className}>
@@ -34,7 +42,7 @@ function RootLayout({ children }) {
             <div className='px-3 py-2 flex items-center gap-1'><Link href='/birthday'><Cake size={16} />ТӨРСӨН ӨДӨР</Link></div>
             <div className='px-3 py-2 flex items-center gap-1'><Link href='/celebration'><Gift size={16} />ТӨРСӨНТЭМДЭГЛЭЛТ ӨДӨР</Link></div>
             <div className="card flex justify-content-center pt-4 text-sm ">
-              <Dropdown  value={selectedCity} onChange={(e) => setSelectedCity(e.value)} options={cities} optionLabel="name" 
+              <Dropdown  value={selectedCity} onChange={onChangeSelect} options={cities} optionLabel="name" 
                   placeholder="Бүтээгдэхүүнүүд" className="w-full md:w-14rem" />
             </div>
           </div>
