@@ -1,5 +1,6 @@
 "use client";
 import Image4 from '../images/image4.jpg';
+import Empty from '../images/empty.png';
 import Image from 'next/image';
 import React, { useState } from 'react';
 import { InputText } from 'primereact/inputtext';
@@ -10,6 +11,7 @@ export default function Home() {
   const [value, setValue] = useState(1);
   const [price, setPrice] = useState(38000);
   const [isButtonClicked, setIsButtonClicked] = useState(false);
+  const [isDeleteClicked, setIsDeleteClicked] = useState(false);
 
   const handleIncrement = () => {
     setValue(value + 1);
@@ -27,14 +29,18 @@ export default function Home() {
     setIsButtonClicked(true);
   };
 
+  const handleDeleteClick = () => {
+    setIsDeleteClicked(true);
+  };
+
   return (
     <main className="pt-20 text-[#F397AF] text-xs px-4 ">
-      {!isButtonClicked && (
+      {!isButtonClicked && !isDeleteClicked && (
         <div className="grid grid-cols-3 gap-4">
           <div className='col-span-2'>
             <h1 className='text-lg float-left mb-3'>Миний сагс</h1>
             <h6 className='float-right mt-2'>
-              <i className={'pi pi-trash ml-2 mr-1'}></i>сагс хоослох
+              <Button onClick={handleDeleteClick}><i className={'pi pi-trash ml-2 mr-1'}></i>сагс хоослох</Button>
             </h6>
             <div className="w-full h-40 bg-white rounded-lg p-3 grid grid-cols-8">
               <div className="col-span-1 bg-black">
@@ -123,6 +129,14 @@ export default function Home() {
         </div>
         <Button className="w-full text-white p-3 mt-4 rounded-lg text-center" style={{backgroundColor:'#F397AF'}}>Төлбөр төлөх</Button>
         </div>
+      )}
+      {isDeleteClicked && (
+        <div className='grid grid-cols-2 place-items-center'>
+          <div className='col-span-2 text-center'>
+            <Image src={Empty} height={135} className="rounded-lg width-full bg-white" />
+            Багц хоосон байна.
+            </div>
+          </div>
       )}
     </main>
   );
